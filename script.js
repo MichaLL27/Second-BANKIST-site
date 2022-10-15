@@ -44,18 +44,6 @@ document.addEventListener('keydown', function (e) {
 
 btnScrollTo.addEventListener('click', function (e) {
   const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
-
-  console.log(e.target.getBoundingClientRect());
-
-  console.log('Currect scroll (X/Y)', window.pageXOffset, window.pageYOffset);
-
-  console.log(
-    'height/width viewport',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth
-  );
-
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
@@ -88,7 +76,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
-  console.log(clicked);
 
   // Guard clause
   if (!clicked) return;
@@ -121,3 +108,11 @@ const handleHover = function (e) {
 
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+// Sticky navigation
+const initialCoords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function (e) {
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
