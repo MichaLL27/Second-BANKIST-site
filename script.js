@@ -109,10 +109,33 @@ const handleHover = function (e) {
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-// Sticky navigation
-const initialCoords = section1.getBoundingClientRect();
+// ADD STICKY
 
-window.addEventListener('scroll', function (e) {
-  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+// add Sticky navigation method 1 (i guess this method is bad for me :)
+
+// const initialCoords = section1.getBoundingClientRect();
+
+// window.addEventListener('scroll', function (e) {
+//   if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+// ADD STICK method 2 (i guess this method is better than 1:)
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height; // nav height = 90px
+
+const stickyNav = function (enteries) {
+  const [entry] = enteries;
+
+  if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`, // header - nav height and add sticky class
 });
+
+headerObserver.observe(header);
