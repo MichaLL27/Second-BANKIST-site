@@ -188,10 +188,6 @@ imgTargets.forEach(img => imgObserver.observe(img));
 
 // When page reaload scroll to top (0, 0)
 
-if (history.scrollRestoration) {
-  history.scrollRestoration = 'manual';
-} else {
-  window.onbeforeunload = function () {
-    window.scrollTo(0, 0);
-  };
-}
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
