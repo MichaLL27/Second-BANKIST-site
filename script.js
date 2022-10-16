@@ -168,7 +168,6 @@ allSections.forEach(function (section) {
 const imgTargets = document.querySelectorAll('img[data-src]');
 const loadImg = function (enteries, observer) {
   const [entry] = enteries;
-  console.log(entry);
   if (!entry.isIntersecting) return;
 
   entry.target.src = entry.target.dataset.src;
@@ -186,3 +185,13 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach(img => imgObserver.observe(img));
+
+// When page reaload scroll to top (0, 0)
+
+if (history.scrollRestoration) {
+  history.scrollRestoration = 'manual';
+} else {
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  };
+}
